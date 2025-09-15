@@ -10,7 +10,7 @@ console.log(older(friends[0]))
 function allOlder(f: Friend[]) {
     return f.map(f => older(f))
 }
-console.log(allOlder(friends))
+//console.log(allOlder(friends))
 
 
 // Find the colleague with the highest extension number.
@@ -20,29 +20,35 @@ function highestExtension(cs: Colleague[]) {
   );
   return result[cs.length - 1];
 }
-console.log(highestExtension(colleagues.current))
+//console.log(highestExtension(colleagues.current))
 
 function addColleague(cs: Colleague[], name: string, department: string, email: string) {
     const newColleague = { name, department, contact: { email, extension: highestExtension(cs).contact.extension + 1 } };
     cs.push(newColleague);
 }
 addColleague(colleagues.current, "Sheild O Connell", "HR", "soc@here.com");
-console.log(colleagues.current.filter((c) => c.name === "Sheild O Connell"));
+//console.log(colleagues.current.filter((c) => c.name === "Sheild O Connell"));
 
 function sortColleagues(
     colleagues: Colleague[],
-    sorter: (c1: Colleague, c2: Colleague) => number
+    sorter: (c1: Colleague, c2: Colleague) => number,
+    max?: number
 ): EmailContact[] {
+    let end = colleagues.length;
+    if( max !== undefined ){
+        end = max < 2 ? 1 : max
+    }
     const sorted = colleagues.sort(sorter);
-    const result: EmailContact[] = sorted.map((ce) => ({
+    const fullResult =  sorted.map((ce) => ({
         name: ce.name,
-        email: ce.contact.email,
+        email: ce.contact.email
     }));
-    return result;
+    return fullResult.slice(0,end);
 }
 
-console.log(sortColleagues(colleagues.current, (a, b) => a.contact.extension - b.contact.extension));
-console.log(sortColleagues(colleagues.current, (a, b) => a.name.length - b.name.length));
+console.log(sortColleagues(colleagues.current, (a, b) => (a.contact.extension - b.contact.extension), 3));
+console.log(sortColleagues(colleagues.current, (a, b) => (a.name.length - b.name.length), 1));
+console.log(sortColleagues(colleagues.current, (a, b) => (a.name.length - b.name.length)));
 
 function findFriends(
     friends : Friend[],
@@ -53,5 +59,5 @@ function findFriends(
     return result
 }
 
-console.log(findFriends(friends, (friend) => friend.name.startsWith("Pa")));
-console.log(findFriends(friends, (friend) => friend.age < 35));
+//console.log(findFriends(friends, (friend) => friend.name.startsWith("Pa")));
+//console.log(findFriends(friends, (friend) => friend.age < 35));

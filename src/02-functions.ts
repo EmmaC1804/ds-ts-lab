@@ -26,7 +26,7 @@ function addColleague(cs: Colleague[], name: string, department: string, email: 
     const newColleague = { name, department, contact: { email, extension: highestExtension(cs).contact.extension + 1 } };
     cs.push(newColleague);
 }
-addColleague(colleagues.current, "Sheild O Connell", "HR", "soc@here.com");
+//addColleague(colleagues.current, "Sheild O Connell", "HR", "soc@here.com");
 //console.log(colleagues.current.filter((c) => c.name === "Sheild O Connell"));
 
 function sortColleagues(
@@ -45,7 +45,6 @@ function sortColleagues(
     }));
     return fullResult.slice(0,end);
 }
-
 console.log(sortColleagues(colleagues.current, (a, b) => (a.contact.extension - b.contact.extension), 3));
 console.log(sortColleagues(colleagues.current, (a, b) => (a.name.length - b.name.length), 1));
 console.log(sortColleagues(colleagues.current, (a, b) => (a.name.length - b.name.length)));
@@ -58,6 +57,16 @@ function findFriends(
     const result : string[] = found.map(f => f.name);
     return result
 }
-
 //console.log(findFriends(friends, (friend) => friend.name.startsWith("Pa")));
 //console.log(findFriends(friends, (friend) => friend.age < 35));
+
+function addInterest(f: Friend, interests: string) {
+    if (f.interests !== undefined) {
+        f.interests.push(interests)
+    }
+    else {
+        f.interests = [interests]
+    }
+    return f.interests
+}
+console.log(addInterest(friends[0], 'Politics'))

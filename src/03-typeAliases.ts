@@ -80,12 +80,14 @@ function findBuddyContact(list: BuddyList, name: string): string | undefined {
 console.log("Contact buddy at: ", findBuddyContact(myFootballBuddies, "Ralph Graham"));
 
 function getBuddyListFriends(list: BuddyList): Friend[]{
-    const friends : Friend[] = []
-    for(const buddy of list.members){
-        if("phone" in buddy){
-            friends.push(buddy)
+    let result : Friend[] = []
+    list.members.reduce((res, buddy) => {
+        const friend = friends.find((f) => f.name === buddy.name)
+        if (friend) {
+            res.push(friend)
         }
-    }
-    return friends
+        return res
+    },result)
+    return result
 }
 console.log("Friends: ", getBuddyListFriends(myFootballBuddies));
